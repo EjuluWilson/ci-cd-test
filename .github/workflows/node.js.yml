@@ -57,3 +57,8 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run deployment
+        run: curl https://api.render.com/deploy/srv-crrbcgtds78s73cufdmg?key=mUBVjiTWcww
