@@ -5,7 +5,7 @@ import { describe, it, expect } from 'vitest';
 describe('App shows messages', () => {
   it('renders welcome message', () => {
     render(<App />);
-    const linkElement = screen.getByText(/FSE CI-CD RECITATIO/i);
+    const linkElement = screen.getByText(/PROSPER FSE CI-CD RECITATION/i);
     expect(linkElement).toBeInTheDocument();
   });
 
