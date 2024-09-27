@@ -5,17 +5,46 @@ name: Node.js CI
 
 on:
   push:
-    branches: ["master"]
+    branches:
+      - main
+      - develop
+      - master
   pull_request:
-    branches: ["master"]
+    types: [opened, synchronize, reopened]
 
 jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: yarn install
+      - name: Audit dependencies
+        run: npx improved-yarn-audit --ignore-dev-deps
+  dependency-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: yarn install
+      - name: Check for outdated dependencies
+        run: npx depcheck
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: yarn install
+      - name: Run linter
+        run: yarn run lint
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [22.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
